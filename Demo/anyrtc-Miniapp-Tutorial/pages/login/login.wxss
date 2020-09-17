@@ -1,0 +1,53 @@
+#login{
+    height:100vh;
+    /* background-color: #43B984; */
+}
+.await_login{
+    position: fixed;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+.logo{
+    width:200rpx;
+    height:200rpx;
+    border-radius: 50%;
+    transform: translateY(-300rpx);
+}
+.room_number{
+    width:500rpx;
+    text-align: center;
+    line-height: 70rpx;
+    height:70rpx;
+    margin:30rpx;
+    font-size: 30rpx;
+    /* color:#fff; */
+    border-bottom:1px solid #ccc;
+}
+.login{
+    font-size: 30rpx;
+    width:260rpx;
+    text-align: center;
+    line-height: 70rpx;
+    height:70rpx;
+    background-color: #169BD5;
+    color:#fff;
+    border-radius: 10rpx;
+    font-size: 28rpx;
+}
+
+.statement{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom:40rpx;
+    display: flex;
+    font-size: 26rpx;
+    color:#fff;
+    justify-content: center;
+}

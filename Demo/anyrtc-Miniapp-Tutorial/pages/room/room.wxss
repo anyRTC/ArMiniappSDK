@@ -1,0 +1,75 @@
+.room{
+    display:flex;
+    flex-direction: column;
+    height:100vh;
+    /* background-color: #7E34A7; */
+}
+
+.video-view{
+    margin: auto;
+    overflow: auto;
+    border-radius: 10rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+}
+
+.video-view_wrap {
+    border: 1px dashed #6b6b6b; 
+}
+
+.ptoto_frame_box{
+    position: relative;
+    height:230rpx;
+}
+.live-pusher,.live-player{
+    width:230rpx;
+    height:230rpx;
+    border-radius: 10rpx;
+    background-color: slateblue;
+}
+.operation{
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom:12rpx;
+    left: 0;
+    right:0;
+}
+.detale{
+    position: absolute;
+    top:0;
+    right:0;
+    width:40rpx;
+    height:40rpx;
+}
+.audio{
+    width:40rpx;
+    height:40rpx;
+}
+.video{
+    width:35rpx;
+    height:35rpx;
+    transform: translate(-4rpx , 8rpx);
+}
+.local_operating{
+    height:200rpx;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.local_operating_item{
+    width:150rpx;
+    line-height: 150rpx;
+    height:150rpx;
+    border-radius: 50%;
+    border:1px solid #6b6b6b;
+    text-align: center;
+    font-size: 26rpx;
+    color:#333;
+    transition: .3s;
+}
+
+.local_operating_item:active{
+    background-color: slategrey;
+    line-height: 160rpx;
+}

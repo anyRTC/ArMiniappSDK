@@ -1,0 +1,16 @@
+{
+  "name": "anyrtc-miniapp-tutorial",
+  "version": "4.0.0",
+  "description": "#### Description {**When you're done, you can delete the content in this README and update the file with details for others getting started with your repository**}",
+  "main": "app.js",
+  "dependencies": {
+    "ar-rtc-miniapp": "^0.0.1",
+    "miniprogram-sm-crypto": "^0.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
