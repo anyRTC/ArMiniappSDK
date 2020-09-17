@@ -1,0 +1,7 @@
+node_modules/
+miniprogram_npm/
+build/
+
+*.log
+.DS_Store
+.gitmodules
