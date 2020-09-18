@@ -25,7 +25,6 @@
     width:230rpx;
     height:230rpx;
     border-radius: 10rpx;
-    background-color: slateblue;
 }
 .operation{
     display: flex;

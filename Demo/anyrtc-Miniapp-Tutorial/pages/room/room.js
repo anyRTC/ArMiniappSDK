@@ -1,4 +1,4 @@
-import ArRTC from 'ar-rtc-miniapp';
+var ArRTC = require('../../utils/ArRTCMiniapp@latest');
 import config from  '../../utils/config';
 Page({
     data: {
@@ -8,19 +8,24 @@ Page({
         localVideoMute : false,// 是否禁用本地视频流
         operationUser : [],// 远端用户列表
         client : null,// 本地实例对象
-        deviceText : '前置摄像头',// 摄像头文字
+        deviceText : '后置摄像头',// 摄像头文字
         roomNumber : '',// 频道地址
         enable : true,//是否开启摄像头
         countdown : null, // 定时器
     },
     onLoad(option) {
+        wx.showLoading({
+            title : '正在发布视频流，请稍后',
+            mask : true,
+        })
+
         this.setData({ roomNumber: option.roomNumber }, () => {
             this.init();
         });
-        // 保持屏幕常亮
-        wx.setKeepScreenOn({
-            keepScreenOn: true
-        });
+
+        // 保持手机屏幕常亮
+        wx.setKeepScreenOn({ keepScreenOn : true });
+
         // 监听网络变化
         wx.onNetworkStatusChange((res) => {
             if (res.isConnected) {
@@ -50,10 +55,10 @@ Page({
         });
     },
     // 初始化
-    init() {
+    async init() {
         const { APPID, SERVERAdd, PORT, WSS } = config;
         var client = new ArRTC.client();  // 生成本地实例
-        client.init(APPID); // 初始化本地实例
+        await client.init(APPID); // 初始化本地实例
         // 配置私有云
         if (SERVERAdd && PORT && WSS) {
             client.setParameters({ 
@@ -75,8 +80,21 @@ Page({
         client.join(undefined, roomNumber, userID, () => {
             // 发布本地视频流
             client.publish((url) => {
-                console.log(url);
+                wx.hideLoading();
                 this.setData({ publishUrl : url });
+            },() => {
+                wx.hideLoading();
+                wx.showToast({
+                    title : '视频流发布失败，请稍后重试',
+                    mask : true,
+                });
+                setTimeout(() => {
+                    wx.hideToast();
+                    this.setData({ client : null });
+                    wx.navigateBack({
+                        delta: 1,
+                    });
+                });
             });
             // 远端用户发布媒体流
             client.on('stream-added', (data) => {
@@ -173,21 +191,21 @@ Page({
     // 切换摄像头方向
     changeDevice() {
         let { deviceText } = this.data;
-        deviceText = deviceText == '后置摄像头' ? '后置摄像头' : '前置摄像头';
+        deviceText = deviceText == '后置摄像头' ? '前置摄像头' : '后置摄像头';
         let LivePusherContext = wx.createLivePusherContext();
         LivePusherContext.switchCamera();
         this.setData({ deviceText });
     },
 
     // 离开频道
-    leave() {
+    async leave() {
         const { client } = this.data;
         if (client === null) {
             wx.offNetworkStatusChange();
             wx.navigateBack({ delta : 1 });
             return;
         };
-        client.leave();
+        await client.leave();
         wx.offNetworkStatusChange();
         this.setData({ client : null });
         wx.navigateBack({ delta : 1 });
@@ -195,10 +213,8 @@ Page({
 
     // 如果页面被卸载时被执行
     onUnload() {
-        // 保持屏幕常亮
-        wx.setKeepScreenOn({
-            keepScreenOn: false
-        });
+        // 保持手机屏幕常亮
+        wx.setKeepScreenOn({ keepScreenOn : false });
         this.leave();
     },
 
