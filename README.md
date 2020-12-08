@@ -3,7 +3,7 @@
 anyrtc Miniapp SDK 是基于 anyrtc 专门为微信小程序打造的SDK。能实现基于 anyrtc SD-RTN 的音视频实时通信功能，支持语音通话、视频通话、音频互动直播、视频互动直播等场景。
 
 ```shell
-npm install ar-rtc-miniapp--save
+npm install ar-rtc-miniapp --save
 ```
 
 接入指南和使用文档请访问我们的文档站 https://docs.anyrtc.io/rtc-miniapp/
