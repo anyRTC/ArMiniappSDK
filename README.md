@@ -10,7 +10,7 @@ npm install ar-rtc-miniapp --save
 
 接入过程中，你可以在本仓库参考 anyrtc Miniapp SDK 的 [Demo 源码](./Demo)
 
-![image-20201221100417979](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201221100417979.png)
+![image-20201221100417979](C:\Users\Administrator\Desktop\新建文件夹 (2)\ArMiniappSDK\Docs\docs\assets\image-20201221100417979.png)
 
 > 如果您在接入 anyrtc miniapp SDK 时遇到问题，或者有任何建议，都可以在本仓库的 Issues 区发帖讨论，我们会尽快处理大家的反馈
 
