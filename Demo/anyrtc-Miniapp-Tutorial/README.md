@@ -17,7 +17,7 @@ ArRTC SDK for Wechat 是为了与anyRTC音视频云平台多端互通，而单�
 
 ## Demo 体验
 
-![Demo体验二维码](https://docs.anyrtc.io/rtc-miniapp/assets/images/demo_qrcode-34d3086868d2462e61e9a5358a8bcfee.jpg)
+![Demo体验二维码](https://raw.githubusercontent.com/anyRTC/ArMiniappSDK/master/Docs/docs/assets/demo_qrcode.png)
 
 GitHub [源码地址](https://github.com/anyRTC/ArMiniappSDK)
 
