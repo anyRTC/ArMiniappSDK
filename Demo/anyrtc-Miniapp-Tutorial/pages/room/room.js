@@ -206,11 +206,20 @@ Page({
             return;
         };
         await client.leave();
-        wx.offNetworkStatusChange();
-        this.setData({ client: null });
-        wx.navigateBack({ delta: 1 });
+        // 销毁客户端对象
+        client.destroy(() => {
+            wx.offNetworkStatusChange();
+            this.setData({ client: null });
+            wx.navigateBack({ delta: 1 });
+        }, () => {
+            wx.showToast({
+                title: '销毁客户端对象失败',
+                icon: 'none',
+                mask: true,
+            });
+        });
     },
-
+    
     // 如果页面被卸载时被执行
     onUnload() {
         // 保持手机屏幕常亮
