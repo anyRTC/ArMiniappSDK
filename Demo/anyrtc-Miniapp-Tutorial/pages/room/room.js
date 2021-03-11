@@ -200,16 +200,9 @@ Page({
     // 离开频道
     async leave() {
         const { client } = this.data;
-        if (client === null) {
-            wx.offNetworkStatusChange();
-            wx.navigateBack({ delta: 1 });
-            return;
-        };
-        await client.leave();
         // 销毁客户端对象
         client.destroy(() => {
             wx.offNetworkStatusChange();
-            this.setData({ client: null });
             wx.navigateBack({ delta: 1 });
         }, () => {
             wx.showToast({
