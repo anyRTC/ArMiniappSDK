@@ -29,7 +29,7 @@
                         src='../../images/microphone.png'>
                     </image>
                     <image 
-                        bindtap='unmute' 
+                        bindtap='unmuteRemote' 
                         data-index='{{ index }}' 
                         wx:if='{{ !item.isMuteVideo }}' 
                         data-uid='{{ item.uid }}' 
@@ -39,7 +39,7 @@
                     </image>
                     <image 
                         wx:else 
-                        bindtap='mute'
+                        bindtap='muteRemote'
                         data-index='{{ index }}' 
                         data-uid='{{ item.uid }}' 
                         data-target='video' 
@@ -52,7 +52,7 @@
     </view>
     <!-- 本地操作 -->
     <view class='local_operating'>
-        <view class='local_operating_item' bindtap='changeDevice'>{{ deviceText }}</view>
+        <view class='local_operating_item' bindtap='switchCamera'>{{ deviceText }}</view>
         <view class='local_operating_item' data-target='video' wx:if='{{ !localVideoMute }}' bindtap='muteLocal'>开启摄像头</view>
         <view class='local_operating_item' data-target='video' wx:else bindtap='unmuteLocal'>关闭摄像头</view>
         <view class='local_operating_item' bindtap='leave'>挂断</view>

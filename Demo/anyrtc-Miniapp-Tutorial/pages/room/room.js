@@ -59,8 +59,9 @@ Page({
         const { APPID, SERVERAdd, PORT, WSS } = config;
         var client = new ArRTC.client();  // 生成本地实例
         await client.init(APPID); // 初始化本地实例
+        
         // 配置私有云
-        if (SERVERAdd && PORT && WSS) {
+        if (SERVERAdd && PORT && typeof WSS === "boolean") {
             client.setParameters({ 
                 ConfPriCloudAddr: { 
                     ServerAdd: SERVERAdd,
@@ -69,6 +70,44 @@ Page({
                 },
             });
         };
+
+        // 远端用户发布媒体流
+        client.on('stream-added', (data) => {
+            const { uid } = data;
+            // 订阅远端媒体流
+            client.subscribe(uid, (url) => {
+                this.data.operationUser.push({
+                    uid,
+                    pullUrl: url,
+                    isSubscribe: true,
+                    isMuteAudio: true,
+                    isMuteVideo: true,
+                });
+                this.setData({ operationUser: this.data.operationUser });
+            })
+        });
+
+        // 远端用户删除音视频流
+        client.on('stream-removed', (data) => {
+            const { uid } = data;
+            this.data.operationUser.forEach((item, index) => {
+                if (item.uid == uid) {
+                    this.data.operationUser.splice(index, 1);
+                }
+            });
+            this.setData({ operationUser: this.data.operationUser });
+        });
+
+        // 通知应用程序已更新 Url 地址。 该回调中会包含远端用户的 ID 和更新后的拉流地址
+        client.on('update-url', (data) => {
+            const { uid, url } = data;
+            this.data.operationUser.forEach((item) => {
+                if (item.uid == uid) {
+                    item.pullUrl = url;
+                }
+            });
+            this.setData({ operationUser: this.data.operationUser });
+        });
         this.setData({ client }, () => {
             this.addChannel();
         });
@@ -96,48 +135,11 @@ Page({
                     });
                 });
             });
-            // 远端用户发布媒体流
-            client.on('stream-added', (data) => {
-                const { uid } = data;
-                // 订阅远端媒体流
-                client.subscribe(uid, (url) => {
-                    this.data.operationUser.push({
-                        uid,
-                        pullUrl: url,
-                        isSubscribe: true,
-                        isMuteAudio: true,
-                        isMuteVideo: true,
-                    });
-                    this.setData({ operationUser: this.data.operationUser });
-                })
-            });
-
-            // 远端用户删除音视频流
-            client.on('stream-removed', (data) => {
-                const { uid } = data;
-                this.data.operationUser.forEach((item, index) => {
-                    if (item.uid == uid) {
-                        this.data.operationUser.splice(index, 1);
-                    }
-                });
-                this.setData({ operationUser: this.data.operationUser });
-            });
-
-            // 通知应用程序已更新 Url 地址。 该回调中会包含远端用户的 ID 和更新后的拉流地址
-            client.on('update-url', (data) => {
-                const { uid, url } = data;
-                this.data.operationUser.forEach((item) => {
-                    if (item.uid == uid) {
-                        item.pullUrl = url;
-                    }
-                });
-                this.setData({ operationUser: this.data.operationUser });
-            });
         })
     },
 
     // 关闭远程用户声音或视频
-    mute(e) {
+    muteRemote(e) {
         const { uid, target, index } = e.target.dataset;
         const { client } = this.data;
         client.mute(uid , target);
@@ -150,7 +152,7 @@ Page({
     },
 
     // 开启远程用户声音或视频
-    unmute(e) {
+    unmuteRemote(e) {
         const { uid, target, index } = e.target.dataset;
         const { client } = this.data;
         client.unmute(uid, target);
@@ -189,7 +191,7 @@ Page({
     },
 
     // 切换摄像头方向
-    changeDevice() {
+    switchCamera() {
         let { deviceText } = this.data;
         deviceText = deviceText == '后置摄像头' ? '前置摄像头': '后置摄像头';
         let LivePusherContext = wx.createLivePusherContext();
@@ -198,7 +200,7 @@ Page({
     },
 
     // 离开频道
-    async leave() {
+    leave() {
         const { client } = this.data;
         // 销毁客户端对象
         client.destroy(() => {
@@ -222,7 +224,17 @@ Page({
 
     // 状态变化事件
     bindpushstatechange(e) {
-        console.log(e.detail.code, e.detail.message);
+        if (e.detail.code === 1001) {
+            console.log("===> 已经连接推流服务器", Date.now());   
+        }  else if (e.detail.code === 1002) {
+            console.log("===> 已经与服务器握手完毕,开始推流", Date.now());   
+        } else if (e.detail.code === 1007) {
+            console.log("===> 首帧画面采集完成", Date.now());   
+        } else if (e.detail.code === 1008) {
+            console.log("===> 首帧画面采集完成", Date.now());   
+        } else {
+            console.log(e.detail.code, e.detail.message);
+        }
     },
 
     // 播放状态变化事件
