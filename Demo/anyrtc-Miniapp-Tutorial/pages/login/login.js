@@ -2,15 +2,22 @@ import config from  "../../utils/config";
 Page({
     data:{
         roomNumber: '',//房间号
+        loginIng: false
     },
     //房间号
     roomNumber(e) {
         const roomNumber = e.detail.value;
         this.setData({roomNumber});
     },
+    onShow() {
+        this.setData({ loginIng: false });
+    },
     //加入房间
     loginRoom() {
-        const {roomNumber} = this.data;
+        const { roomNumber } = this.data;
+        console.log(this.data.loginIng)
+        if (this.data.loginIng) return
+        this.setData({ loginIng: true });
         const { APPID } = config;
         if ( !APPID ) {
             wx.showToast({
@@ -21,8 +28,9 @@ Page({
             return;
         };
         wx.getNetworkType({
-            success (res) {
+            success: (res) => {
                 if (res.networkType == 'none') {
+                    this.setData({ loginIng: false });
                     wx.showToast({
                         title : `请连接网络后重试...`,
                         icon : 'none',
@@ -30,11 +38,9 @@ Page({
                         mask : true,
                     });
                 } else {
-                    if(roomNumber == '') return;
+                    if(roomNumber == '') return
                     wx.navigateTo({
                         url: `../room/room?roomNumber=${roomNumber}`,
-                    },() => {
-                        this.setData({ roomNumber : '' });
                     });
                 };
             }

@@ -17,7 +17,7 @@ Page({
         wx.showLoading({
             title: '正在发布视频流，请稍后',
             mask: true,
-        })
+        });
 
         this.setData({ roomNumber: option.roomNumber }, () => {
             this.init();
@@ -201,6 +201,13 @@ Page({
 
     // 离开频道
     leave() {
+        wx.navigateBack({ delta: 1 });
+    },
+    
+    // 如果页面被卸载时被执行
+    onUnload() {
+        // 保持手机屏幕常亮
+        wx.setKeepScreenOn({ keepScreenOn: false });
         const { client } = this.data;
         // 销毁客户端对象
         client.destroy(() => {
@@ -213,13 +220,6 @@ Page({
                 mask: true,
             });
         });
-    },
-    
-    // 如果页面被卸载时被执行
-    onUnload() {
-        // 保持手机屏幕常亮
-        wx.setKeepScreenOn({ keepScreenOn: false });
-        this.leave();
     },
 
     // 状态变化事件
