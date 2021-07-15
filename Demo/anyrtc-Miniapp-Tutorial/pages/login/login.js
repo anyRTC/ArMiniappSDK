@@ -15,7 +15,6 @@ Page({
     //加入房间
     loginRoom() {
         const { roomNumber } = this.data;
-        console.log(this.data.loginIng)
         if (this.data.loginIng) return
         this.setData({ loginIng: true });
         const { APPID } = config;

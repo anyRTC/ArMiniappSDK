@@ -11,7 +11,7 @@
                 <live-player autoplay='true' mode='RTC' class='live-player' src='{{ item.pullUrl }}'></live-player>
                 <view class='operation' wx:if='{{ item.pullUrl !== "" }}'>
                     <image 
-                        bindtap='unmute' 
+                        bindtap='unmuteRemote' 
                         data-index='{{ index }}' 
                         wx:if='{{ !item.isMuteAudio }}' 
                         data-uid='{{ item.uid }}' 
@@ -21,7 +21,7 @@
                     </image>
                     <image 
                         wx:else 
-                        bindtap='mute' 
+                        bindtap='muteRemote' 
                         data-index='{{ index }}'
                         data-uid='{{ item.uid }}' 
                         data-target='audio' 
