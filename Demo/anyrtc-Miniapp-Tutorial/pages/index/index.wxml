@@ -1,0 +1,7 @@
+<view class="row">
+  <image src="../../images/entry_av.png" mode="widthFix" class="item" bindtap="switchMode" data-type="0"/>
+  <!-- <image src="../../images/entry_rtmpc.png" mode="widthFix" class="item" bindtap="switchMode" data-type="1"/> -->
+</view>
+<!-- <view style="margin: 15rpx 0 0 15rpx;">
+  <image src="../../images/entry_p2p.png" mode="widthFix" class="item" bindtap="switchMode" data-type="2" />
+</view> -->

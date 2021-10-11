@@ -1,0 +1,12 @@
+
+<view class="logo">
+  <image src="/images/icon_av.png" mode="widthFix" />
+  <text>anyRTC多人音视频小程序体验</text>
+</view>
+<input class="room_id_input" placeholder-class="placeholder" type="number" placeholder="请输入房间号" bindinput="inputChange" data-type="meet" />
+<button class="signinBtn" type='primary' bindtap='btnClick' data-type="join">进入房间</button>
+
+<view class="bottom">
+  <text>{{ version }}</text>
+  <text>技术支持：zhangjianqiang@dync.cc</text>
+</view>

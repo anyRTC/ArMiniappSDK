@@ -1,0 +1,31 @@
+.other_view {
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  position: absolute;
+  right: 18rpx;
+  bottom: 120rpx;
+  width: calc(100vw/3);
+}
+
+.other_view live-player {
+  width: calc(100vw/3);
+  height: calc(100vw/3*3/4);
+  margin-top: 18rpx;
+  position: relative;
+}
+
+.operation_bar {
+  display: flex;
+  z-index: 10;
+  position: absolute;
+  left: 18rpx;
+  bottom: 34rpx;
+  width: calc(100vw-36rpx);
+}
+
+.operation_bar cover-image {
+  width: 66rpx;
+  height: 66rpx;
+  margin-left: 18rpx;
+}

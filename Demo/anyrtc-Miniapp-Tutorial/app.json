@@ -1,12 +1,13 @@
 {
     "pages": [
-        "pages/login/login",
-        "pages/room/room"
+        "pages/index/index",
+        "pages/meet/index/index",
+        "pages/meet/meet"
     ],
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "anyrtc",
+        "navigationBarTitleText": "anyRTC视频云",
         "navigationBarTextStyle": "black"
     },
     "style": "v2",

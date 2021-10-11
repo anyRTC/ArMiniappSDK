@@ -1,0 +1,83 @@
+.logo {
+  margin-top: 30vw;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #aaaaaa;
+  font-size: 28rpx;
+}
+.logo image {
+  width: 160rpx;
+}
+.room_id_input {
+  text-align: center;
+  margin: 15vw 10vw 5vw 10vw;
+  padding: 20rpx;
+  font-size: 24rpx;
+  border: 1px solid #f2f4f6;
+}
+.placeholder {
+  color: #999999;
+}
+.signinBtn {
+  width: 80vw;
+  font-size: 24rpx;
+  padding: 20rpx;
+  color: #1aad19;
+}
+.hint {
+  color: #aaaaaa;
+  font-size: 22rpx;
+  padding: 10rpx;
+}
+.row {
+  width: 80vw;
+  border: 1 solid #eeeeee;
+  box-sizing: border-box;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
+  margin: 0 auto;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+}
+.row_text {
+  font-size: 30rpx;
+  color: #333333;
+}
+.row_text1 {
+  font-size: 26rpx;
+  color: #33b15d;
+  margin-right: 40rpx
+}
+.row_text2 {
+  font-size: 26rpx;
+  color: #999999;
+}
+.row_icon {
+  width: 136rpx;
+  height: 136rpx;
+  margin-right: 40rpx;
+  margin-left: 20rpx;
+}
+.row_icon1 {
+  width: 30rpx;
+  height: 18rpx;
+  margin-right: 10rpx;
+}
+.row_icon2 {
+  width: 17rpx;
+  height: 24rpx;
+  margin-right: 10rpx;
+}
+.bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 20rpx;
+  width: 100vw;
+  color: #999999;
+  font-size: 20rpx;
+}
