@@ -1,5 +1,5 @@
 <!-- 推流组件，view包裹可自定义样式 -->
-<live-pusher mode='RTC' wx:if='{{ publishUrl }}' style='width: 100vw; height: 100vh' debug='{{ debug }}' enable-camera='{{ enable }}' url='{{ publishUrl }}' beauty-style='{{ beautyStyle }}'  beauty='{{ beauty }}' whiteness='{{ whiteness }}' autopush='true'>
+<live-pusher mode='RTC' wx:if='{{ publishUrl }}' style='width: 100vw; height: 100vh' debug='{{ debug }}' enable-camera='{{ enable }}' url='{{ publishUrl }}' beauty-style='{{ beautyStyle }}' enable-mic='{{ enableAudio }}' beauty='{{ beauty }}' whiteness='{{ whiteness }}' autopush='true'>
 	<cover-view class="operation_bar">
 		<cover-view>
 			<cover-image bindtap="switchCamera" src="/images/icon_switch.png" mode="widthFix" />

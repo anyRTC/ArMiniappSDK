@@ -103,7 +103,7 @@ Page({
       const len = this.data.operationUser.length - 1;
       for (var i = len; i >= 0; i--) {
         if (this.data.operationUser[i].uid === uid) {
-          log.info(`${uid}远端用户删除音视频流, 房间号：${options.roomId}`);
+          log.info(`${uid}远端用户删除音视频流, 房间号：${this.data.roomId}`);
           this.data.operationUser.splice(i, 1);
         }
       };
@@ -216,7 +216,7 @@ Page({
 
   // 离开房间
   leaveRoom() {
-    const { data: { client }, clearData } = this;
+    const { data: { client, roomId, userId }, clearData } = this;
     wx.showModal({
       title: "提示",
       content: "确认退出会议？",
@@ -225,10 +225,10 @@ Page({
           // 销毁客户端对象
           client.destroy(() => {
             clearData();
-            log.info(`${this.data.userId} 销毁客户端对象成功, 房间号：${this.data.roomId}`);
+            log.info(`${userId} 销毁客户端对象成功, 房间号：${roomId}`);
             wx.navigateBack({ delta: 1 });
           }, (e) => {
-            log.error(`${this.data.userId} 销毁客户端对象失败, 房间号：${this.data.roomId}，错误信息：${e}`);
+            log.error(`${userId} 销毁客户端对象失败, 房间号：${roomId}，错误信息：${e}`);
             wx.showToast({
               title: '销毁客户端对象失败',
               icon: 'none',
