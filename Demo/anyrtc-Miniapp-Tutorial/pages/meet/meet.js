@@ -168,10 +168,10 @@ Page({
     const { client, userId, roomId } = this.data;
     if (client == null) return
     client.destroy(() => {
-      log.info(`${userId} 销毁客户端对象成功, 房间号：${roomId}`);
+      log.info(`${userId} 销毁客户端对象成功, 房间号：${this.data.roomId}， 用户ID：${this.data.userId}`);
       wx.navigateBack({ delta: 1 });
     }, (e) => {
-      log.error(`${userId} 销毁客户端对象失败, 房间号：${roomId}，错误信息：${e}`);
+      log.error(`${userId} 销毁客户端对象失败, 房间号：${this.data.roomId}， 用户ID：${this.data.userId}，错误信息：${e}`);
       wx.showToast({
         title: '销毁客户端对象失败',
         icon: 'none',
@@ -183,6 +183,7 @@ Page({
   // 离开房间
   leaveRoom() {
     const { destruction } = this;
+    log.info(`离开房间：房间号：${this.data.roomId}， 用户ID：${this.data.userId}`);
     wx.showModal({
       title: "提示",
       content: "确认退出会议？",
@@ -192,16 +193,19 @@ Page({
     });
   },
 
-  bindstatechange(code) {
-    console.log(code.detail.message, '-------------', code.detail.code)
+  async bindstatechange(code) {
+    console.log(code.detail.message, '-------------', code.detail.code);
+    log.info(`bindstatechange 事件：${code.detail.message} --- ${code.detail.code}, 房间号：${this.data.roomId}， 用户ID：${this.data.userId}`);
   },
 
   // 生命周期函数--监听页面卸载
   onUnload() {
     this.destruction();
+    log.info(`生命周期函数--页面卸载：房间号：${this.data.roomId}， 用户ID：${this.data.userId}`);
   },
   
   onHide() {
     this.destruction();
+    log.info(`生命周期函数--页面隐藏：房间号：${this.data.roomId}， 用户ID：${this.data.userId}`);
   }
 });
