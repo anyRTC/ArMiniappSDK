@@ -24,7 +24,8 @@ GitHub [源码地址](https://github.com/anyRTC/ArMiniappSDK)
 
 ## 配置开发者信息
 
-打开 `utils/config.js`设置 APPID， 如果部署了私有云，需要设置私有云地址、端口以及是否使用HTTPS/WSS
+- 打开 `utils/config.js`设置 APPID， 如果部署了私有云，需要设置私有云地址、端口以及是否使用HTTPS/WSS
+- 如果 APPID 没有打开小程序服务，需要在 anyRTC 后台开通方可使用
 
 
 ## 官方文档
