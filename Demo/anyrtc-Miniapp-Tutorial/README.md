@@ -30,4 +30,5 @@ GitHub [源码地址](https://github.com/anyRTC/ArMiniappSDK)
 
 ## 官方文档
 
-详情请参考[官方文档](https://docs.anyrtc.io/rtc-miniapp/docs/)。
+- [快速开始](https://docs.anyrtc.io/cn/Video/run/video_demo/run_demo_video_call_wechat)。
+- [API 文档](https://docs.anyrtc.io/cn/Video/api-ref/rtc_wechat/overview)。
