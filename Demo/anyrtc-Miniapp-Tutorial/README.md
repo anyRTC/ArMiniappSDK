@@ -24,9 +24,11 @@ GitHub [源码地址](https://github.com/anyRTC/ArMiniappSDK)
 
 ## 配置开发者信息
 
-打开 `utils/config.js`设置 APPID， 如果部署了私有云，需要设置私有云地址、端口以及是否使用HTTPS/WSS
+- 打开 `utils/config.js`设置 APPID， 如果部署了私有云，需要设置私有云地址、端口以及是否使用HTTPS/WSS
+- 如果 APPID 没有打开小程序服务，需要在 anyRTC 后台开通方可使用
 
 
 ## 官方文档
 
-详情请参考[官方文档](https://docs.anyrtc.io/rtc-miniapp/docs/)。
+- [快速开始](https://docs.anyrtc.io/cn/Video/run/video_demo/run_demo_video_call_wechat)。
+- [API 文档](https://docs.anyrtc.io/cn/Video/api-ref/rtc_wechat/overview)。
