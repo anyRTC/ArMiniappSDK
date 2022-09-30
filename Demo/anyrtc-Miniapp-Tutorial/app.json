@@ -2,7 +2,11 @@
     "pages": [
         "pages/index/index",
         "pages/meet/index/index",
-        "pages/meet/meet"
+        "pages/meet/meet",
+        "pages/arcall/index/index",
+        "pages/arcall/pagecall/pagecall",
+        "pages/arcall/pageinvite/pageinvite",
+        "pages/arcall/p2p/p2p"
     ],
     "window": {
         "backgroundTextStyle": "light",

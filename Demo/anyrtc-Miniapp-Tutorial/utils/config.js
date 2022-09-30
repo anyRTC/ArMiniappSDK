@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     APPID : '', // anyrtc官网创建的appid，非小程序appid。
     SERVERAdd : 'wtgw.agrtc.cn',
     PORT : 443,

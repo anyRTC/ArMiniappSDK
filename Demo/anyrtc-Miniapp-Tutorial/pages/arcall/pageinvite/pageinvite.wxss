@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 200rpx 0;
+    box-sizing: border-box;
+    position: relative;
+    height: 100vh;
+  }
+  .icon_back {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
+  .text_color {
+    color: #fff;
+  }
+
+/* pages/p2ppage/p2ppage.wxss */
+.m {
+    margin: 20rpx;
+}
+.head_portrait {
+    width: 120px;
+    height: 120px;
+}
+.img_size {
+    width: 60px;
+    height: 60px;
+}
+.details {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.operate {
+    display: flex;
+    justify-content: space-around;
+}
