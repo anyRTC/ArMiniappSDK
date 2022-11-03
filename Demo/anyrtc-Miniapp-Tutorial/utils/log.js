@@ -3,19 +3,23 @@ var log = wx.getRealtimeLogManager ? wx.getRealtimeLogManager() : null
 module.exports = {
   debug() {
     if (!log) return
-    log.debug.apply(log, arguments)
+    log.debug(...arguments)
+    console.debug(...arguments)
   },
   info() {
     if (!log) return
-    log.info.apply(log, arguments)
+    log.info(...arguments)
+    console.info(...arguments)
   },
   warn() {
     if (!log) return
-    log.warn.apply(log, arguments)
+    log.warn(...arguments)
+    console.warn(...arguments)
   },
   error() {
     if (!log) return
-    log.error.apply(log, arguments)
+    log.error(...arguments)
+    console.error(...arguments)
   },
   setFilterMsg(msg) { // 从基础库2.7.3开始支持
     if (!log || !log.setFilterMsg) return

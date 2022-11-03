@@ -1,25 +1,80 @@
 <!-- 推流组件，view包裹可自定义样式 -->
-<live-pusher bindstatechange='bindstatechange' mode='RTC' wx:if='{{ publishUrl }}' style='width: 100vw; height: 100vh' debug='{{ debug }}' enable-camera='{{ enable }}' url='{{ publishUrl }}' beauty-style='{{ beautyStyle }}' enable-mic='{{ enableAudio }}'	beauty='{{ beauty }}' whiteness='{{ whiteness }}' autopush='true'>
-	<cover-view class="operation_bar">
-		<cover-view>
-			<cover-image bindtap="switchCamera" src="/images/icon_switch.png" mode="widthFix" />
-		</cover-view>
-		<cover-view>
-			<cover-image bindtap="switchBeauty" src="{{ beautyStyle === 'nature' ? '/images/icon_beauty.png' : '/images/icon_beautiful.png'}}" mode="widthFix" />
-		</cover-view>
-		<cover-view>
-			<cover-image bindtap="switchAudio" src="{{ enableAudio ? '/images/icon_audio.png' : '/images/icon_audio_close.png' }}" mode="widthFix" />
-		</cover-view>
-		<cover-view>
-			<cover-image bindtap="switchDebug" src="/images/icon_debug.png" mode="widthFix" />
-		</cover-view>
-		<cover-view>
-			<cover-image bindtap="leaveRoom" src="/images/icon_hungup.png" mode="widthFix" />
-		</cover-view>
-	</cover-view>
-</live-pusher>
+<view class="page">
+  <view class="push-view">
+    <!-- 本地推流预览窗口 -->
+    <!-- 推拉流码率请参考 https://cloud.tencent.com/document/product/454/34930#.E5.8F.82.E6.95.B0.E8.AE.BE.E7.BD.AE -->
+    <live-pusher
+      id="pusher"
+      wx:if='{{ publishUrl }}'
+      mode='RTC'
+      data-uid="{{ userId }}"
+      url='{{ publishUrl }}'
+      debug='{{ showDebugLog }}'
+      enable-camera='{{ enableCamera }}'
+      enable-mic='{{ enableAudio }}'
+      beauty-style='{{ beautyStyle }}'
+      beauty='{{ beauty }}'
+      whiteness='{{ whiteness }}'
+      min-bitrate='{{ 150 }}'
+      max-bitrate='{{ 300 }}'
+      audio-quality='low'
+      autopush='true'
+      bindstatechange='onPushStateChange'
+      style='width: 100vw; height: 100vh'
+    >
+      <!-- 推流控件 -->
+      <cover-view class="operation_bar">
+        <!-- 切换前后摄像头 -->
+        <cover-view>
+          <cover-image bindtap="switchCamera" src="/images/icon_switch.png" mode="widthFix" />
+        </cover-view>
+        <!-- 美颜开关 -->
+        <cover-view>
+          <cover-image bindtap="switchBeauty" src="{{ beautyStyle === 'nature' ? '/images/icon_beauty.png' : '/images/icon_beautiful.png'}}" mode="widthFix" />
+        </cover-view>
+        <!-- 音频开关 -->
+        <cover-view>
+          <cover-image bindtap="switchAudio" src="{{ enableAudio ? '/images/icon_audio.png' : '/images/icon_audio_close.png' }}" mode="widthFix" />
+        </cover-view>
+        <!-- 显示或隐藏 Debug 日志 -->
+        <cover-view>
+          <cover-image bindtap="switchDebug" src="/images/icon_debug.png" mode="widthFix" />
+        </cover-view>
+        <!-- 挂断 -->
+        <cover-view>
+          <cover-image bindtap="leaveRoom" src="/images/icon_hungup.png" mode="widthFix" />
+        </cover-view>
+      </cover-view>
+    </live-pusher>
+    <!-- 用户 ID -->
+    <cover-view style="position: absolute; z-index: 200; left: 0; top: 0; background-color: #000; color: #fff;">{{ userId }}</cover-view>
+  </view>
 
-<!-- 拉流组件，view包裹可自定义样式-->
-<view class="other_view">
-	<live-player bindstatechange='bindstatechange' wx:for="{{ operationUser }}" wx:key="{{ item.uid }}" autoplay='true' debug='{{ debug }}' mode='RTC' class='live-player' src='{{ item.pullUrl }}'></live-player>
+  <!-- 拉流组件，view包裹可自定义样式-->
+  <view class="remote-user-view">
+    <!-- 视频容器 -->
+    <view class="remote-media_container" wx:for="{{ remoteUsers }}" wx:key="uid">
+      <!-- 用户状态 -->
+      <view class="remote-media_state">
+        <!-- 用户 ID -->
+        <view class="nick-name">{{ item.uid }}</view>
+        <!-- 用户的音频状态 -->
+        <!-- <image class="audio-status" bindtap="switchAudio" src="{{ item.enableAudio ? '/images/icon_audio.png' : '/images/icon_audio_close.png' }}" mode="widthFix" /> -->
+      </view>
+      <!-- 拉流播放器 -->
+      <live-player
+        id="{{ 'player'+item.uid }}"
+        class='live-player'
+        data-uid="{{ item.uid }}"
+        mode='RTC'
+        src='{{ item.pullUrl }}'
+        autoplay='true'
+        debug='{{ showDebugLog }}'
+        min-cache='{{ 0.2 }}'
+        max-cache='{{ 0.8 }}'
+        bindstatechange='onPullStateChange'
+        bindnetstatus="onPullNetStatus"
+      ></live-player>
+    </view>
+  </view>
 </view>

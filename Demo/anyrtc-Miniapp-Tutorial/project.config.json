@@ -21,35 +21,36 @@
         "checkInvalidKey": true,
         "checkSiteMap": true,
         "uploadWithSourceMap": true,
-        "compileHotReLoad": false,
+        "compileHotReLoad": true,
+        "lazyloadPlaceholderEnable": false,
+        "useMultiFrameRuntime": true,
+        "useApiHook": true,
+        "useApiHostProcess": true,
         "babelSetting": {
             "ignore": [],
             "disablePlugins": [],
             "outputPath": ""
         },
         "useIsolateContext": true,
-        "useCompilerModule": false,
-        "userConfirmedUseCompilerModuleSwitch": false,
-        "lazyloadPlaceholderEnable": false,
-        "useMultiFrameRuntime": true,
+        "userConfirmedBundleSwitch": false,
         "packNpmManually": false,
         "packNpmRelationList": [],
         "minifyWXSS": true,
-        "useStaticServer": true,
-        "showES6CompileOption": false,
         "disableUseStrict": false,
+        "minifyWXML": true,
+        "showES6CompileOption": false,
         "useCompilerPlugins": false,
-        "minifyWXML": true
+        "ignoreUploadUnusedFiles": true
     },
     "compileType": "miniprogram",
     "libVersion": "2.12.2",
     "appid": "wxf32f0025615e24e6",
-    "projectname": "anyrtc%E5%AE%9E%E6%97%B6%E9%9F%B3%E8%A7%86%E9%A2%91Demo",
+    "projectname": "anyrtc-Miniapp-Tutorial",
     "simulatorType": "wechat",
     "simulatorPluginLibVersion": {},
-    "condition": {},
     "editorSetting": {
         "tabIndent": "insertSpaces",
         "tabSize": 4
-    }
+    },
+    "condition": {}
 }

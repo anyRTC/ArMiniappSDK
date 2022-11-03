@@ -1,18 +1,54 @@
-.other_view {
-  display: flex;
-  flex-direction: column;
-  z-index: 100;
-  position: absolute;
-  right: 18rpx;
-  bottom: 120rpx;
-  width: calc(100vw/3);
+.push-view {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
 }
 
-.other_view live-player {
+
+.remote-user-view {
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.remote-media_container {
+  position: relative;
   width: calc(100vw/3);
   height: calc(100vw/3*3/4);
-  margin-top: 18rpx;
-  position: relative;
+  margin-top: 10rpx;
+}
+
+.remote-media_container:first-child {
+  margin-top: 0;
+}
+
+.remote-media_container live-player {
+  width: 100%;
+  height: 100%;
+}
+
+.remote-media_state {
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remote-media_state .nick-name {
+  background-color: #000;
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.remote-media_state .audio-status {
+  width: 48rpx;
 }
 
 .operation_bar {
