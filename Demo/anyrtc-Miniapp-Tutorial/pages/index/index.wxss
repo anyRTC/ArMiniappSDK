@@ -1,15 +1,14 @@
 .row {
-    display: flex;
-    padding: 0 15rpx;
+  display: flex;
+  padding: 0 15rpx;
 }
 
 .item {
-    width: 360rpx;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 360rpx;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
 }
-
