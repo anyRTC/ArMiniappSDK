@@ -5,10 +5,9 @@
   "main": "app.js",
   "dependencies": {
     "ar-rtc-miniapp": "^4.0.1",
-    "ar-rtm-sdk": "^1.0.4",
+    "ar-rtm-sdk": "^1.0.5",
     "miniprogram-sm-crypto": "^0.2.1"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
