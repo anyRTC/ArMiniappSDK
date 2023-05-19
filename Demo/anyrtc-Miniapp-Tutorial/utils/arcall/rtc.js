@@ -103,6 +103,11 @@ const rtcEvent = {
         uid
     }) => {
         console.log("远端用户已停止发送音频流", uid);
+        Until.emit("peerAudioVideoStatus", {
+            peerId: uid,
+            // 静音
+            muted: true
+        });
     },
     // 远端用户已停止发送视频流
     muteVideo: ({
@@ -115,9 +120,14 @@ const rtcEvent = {
         uid
     }) => {
         console.log("远端用户已恢复发送音频流", uid);
+        Until.emit("peerAudioVideoStatus", {
+            peerId: uid,
+            // 静音
+            muted: false
+        });
     },
     // 远端用户已恢复发送视频流
-    unmuteAudio: ({
+    unmuteVideo: ({
         uid
     }) => {
         console.log("远端用户已恢复发送视频流", uid);
