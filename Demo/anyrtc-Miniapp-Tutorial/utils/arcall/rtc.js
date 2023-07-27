@@ -1,11 +1,11 @@
 // 引入 RTC
-const ArRTC = require("ar-rtc-miniapp");
+import ArRTC from "ar-rtc-miniapp";
 // 引入 until
-const Until = require("./util");
+import Until from "./util";
 // 引入 store
-let Store = require("./store");
+import Store from "./store";
 // 引入 SDK 配置
-const Config = require("../config");
+import Config from "../config";
 
 // 初始化 RTC
 const InItRTC = async () => {

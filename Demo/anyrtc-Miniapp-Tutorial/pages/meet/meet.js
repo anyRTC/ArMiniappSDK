@@ -1,6 +1,6 @@
 import config from "../../utils/config";
 // 引入 RTC
-const ArRTC = require("ar-rtc-miniapp");
+import ArRTC from "ar-rtc-miniapp";
 const log = require("../../utils/log.js");
 
 const { PullErrorCode, PushErrorCode } = require("../../utils/errorCode.js")
