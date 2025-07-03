@@ -5,13 +5,13 @@
     <movable-area class="movable-area">
         <movable-view direction="all" x="{{windowWidth-140}}" y="20" class="live-pusher">
             <!-- 本地录制 -->
-            <live-pusher wx:if="{{livePusherUrl}}" url="{{livePusherUrl}}" mode="RTC" autopush bindstatechange="statechange" binderror="error" style="height: 100%;width: 100%;" />
+            <live-pusher wx:if="{{livePusherUrl}}" url="{{livePusherUrl}}" mode="RTC" autopush bindstatechange="pushStateChange" binderror="error" style="height: 100%;width: 100%;" />
         </movable-view>
     </movable-area>
 
     <!-- 远端播放 -->
     <view class="live-player">
-        <live-player wx:if="{{livePlayerUrl}}" src="{{livePlayerUrl}}" mode="RTC" muted="{{peerMuted}}" autoplay bindstatechange="statechange" binderror="error" style="height: 100%;width: 100%;position: absolute;z-index: -100;">
+        <live-player wx:if="{{livePlayerUrl}}" src="{{livePlayerUrl}}" mode="RTC" muted="{{peerMuted}}" autoplay bindstatechange="pullStateChange" binderror="error" style="height: 100%;width: 100%;position: absolute;z-index: -100;">
             <!-- 通话计时 -->
             <cover-view class="calltime text_color">{{calltime}}</cover-view>
             <!-- 操作 -->
@@ -41,9 +41,9 @@
 <!-- 语音通话 -->
 <view class="live" style="background-color: rgba(0, 0, 0, 0.5);" wx:else>
     <!-- 本地推流 关闭摄像头-->
-    <live-pusher wx:if="{{livePusherUrl}}" style="width: 0px;height: 0px;" mode='RTC' enable-camera='{{false}}' url='{{ livePusherUrl }}' autopush></live-pusher>
+    <live-pusher wx:if="{{livePusherUrl}}" style="width: 0px;height: 0px;" mode='RTC' enable-camera='{{false}}' url='{{ livePusherUrl }}' bindstatechange="pushStateChange" autopush></live-pusher>
     <!-- 远端拉流 -->
-    <live-player wx:if="{{livePlayerUrl}}" style="width: 0px;height: 0px;" muted="{{peerMuted}}" autoplay mode='RTC' src='{{ livePlayerUrl }}' binderror="error" bindstatechange="statechange" sound-mode='{{soundMode}}'></live-player>
+    <live-player wx:if="{{livePlayerUrl}}" style="width: 0px;height: 0px;" muted="{{peerMuted}}" autoplay mode='RTC' src='{{ livePlayerUrl }}' binderror="error" bindstatechange="pullStateChange" sound-mode='{{soundMode}}'></live-player>
 
     <!-- 远端用户信息 -->
     <view class="peerinfo">

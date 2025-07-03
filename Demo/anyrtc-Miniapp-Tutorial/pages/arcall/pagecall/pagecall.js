@@ -29,7 +29,7 @@ Page({
     peerMuted: false,
   },
   // 微信组件状态
-  statechange(e) {
+  pushStateChange(e) {
     if (e.detail.code == 2004) {
       wx.hideLoading();
     }
@@ -41,6 +41,20 @@ Page({
     }
 
     console.log("live-pusher code:", e.detail);
+  },
+  // 微信组件状态
+  pullStateChange(e) {
+      if (e.detail.code == 2004) {
+          wx.hideLoading();
+      }
+      if (e.detail.code != 1006 && e.detail.message) {
+          wx.showToast({
+              title: liveCode[e.detail.code] || e.detail.message,
+              icon: 'none',
+          })
+      }
+
+      console.log('live-player code:', e.detail)
   },
   // 微信组件错误
   error(e) {
