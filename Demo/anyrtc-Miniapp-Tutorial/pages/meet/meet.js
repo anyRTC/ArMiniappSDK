@@ -142,6 +142,27 @@ Page({
       log.info(`[room-${this.data.roomId}] 用户 ${userId} 移除远端用户 ${uid} 视频窗口`);
       this._removeRemoteUser(uid);
     });
+    // 监听SDK连接状态
+    client.on('connection-state-change', (curState, revState, reason) => {
+      // 重连处理：重新加入房间、订阅、发布
+      if (curState === 'RECONNECTING') {
+        // 提示
+        wx.showLoading({
+          title: '重连中...',
+          mask: true,
+        });
+        // 清空本地人员窗口，本地推流组件
+        this.setData({
+          publishUrl: "",
+          remoteUsers: []
+        }, () => {
+          // 销毁 SDK 实例
+          client.destroy();
+          // 加入频道成功立即发布
+          this.joinAndPublish();
+        });
+      }
+    });
     // 提示
     wx.showLoading({
       title: '加入房间中...',
@@ -149,7 +170,17 @@ Page({
     });
     log.debug(`开始加入房间 ${roomId}...`);
     // 加入 RTC 房间
-    client.join(
+    this.setData({
+      rtcClient: client,
+    }, this.joinAndPublish);
+  },
+
+  joinAndPublish() {
+    if (!this.data.rtcClient) return;
+    const { userId, roomId } = this.data
+    log.info(`[room-${this.data.roomId}] 用户 ${userId} 加入房间`);
+    // 加入 RTC 房间
+    this.data.rtcClient.join(
       undefined,
       roomId,
       userId,
@@ -161,7 +192,7 @@ Page({
           mask: true,
         });
         // 发布本地视频流
-        client.publish((url) => { // 获取推流地址成功
+        this.data.rtcClient.publish((url) => { // 获取推流地址成功
           wx.hideLoading();
           log.info(`[room-${this.data.roomId}] 用户 ${userId} 获取推流地址成功, 推流地址：${url}`);
           this.setData({
@@ -193,10 +224,6 @@ Page({
         })
       }
     );
-
-    this.setData({
-      rtcClient: client
-    });
   },
 
   // 切换摄像头

@@ -4,7 +4,7 @@
   "description": "#### Description {**When you're done, you can delete the content in this README and update the file with details for others getting started with your repository**}",
   "main": "app.js",
   "dependencies": {
-    "ar-rtc-miniapp": "^4.0.6",
+    "ar-rtc-miniapp": "^4.0.10",
     "ar-rtm-sdk": "^1.0.11",
     "miniprogram-sm-crypto": "^0.2.1"
   },
