@@ -116,7 +116,7 @@ Page({
           Wss: WSS,
         }
       })
-      log.info(`${userId} 配置私有云, 房间号：${roomId}`);
+      log.info(`[room-${this.data.roomId}] 用户 ${userId} 配置私有云, 房间号：${roomId}`);
     };
     // 监听远端用户发布媒体流
     client.on('stream-added', (data) => {
@@ -125,10 +125,10 @@ Page({
       log.info(`[room-${this.data.roomId}] 用户 ${userId} 开始订阅远端用户 ${uid}，开始获取用户的拉流地址...`);
       // 订阅远端媒体流
       client.subscribe(uid, (url) => {
-        log.info(`[room-${this.data.roomId}] 用户 ${userId} 获取 ${uid} 拉流地址成功, 拉流地址：${url}`);
+        log.info(`[room-${this.data.roomId}] 用户 ${userId} 获取订阅远端用户 ${uid} 拉流地址成功, 拉流地址：${url}`);
         this._addRemoteUser(uid, url);
       }, (e) => {
-        log.error(`[room-${this.data.roomId}] 用户 ${userId} 获取 ${uid} 拉流地址失败, 错误信息：`, e);
+        log.error(`[room-${this.data.roomId}] 用户 ${userId} 获取订阅远端用户 ${uid} 拉流地址失败, 错误信息：`, e);
         wx.showModal({
           title: '错误',
           content: '订阅远端媒体流失败',
@@ -168,7 +168,6 @@ Page({
       title: '加入房间中...',
       mask: true,
     });
-    log.debug(`开始加入房间 ${roomId}...`);
     // 加入 RTC 房间
     this.setData({
       rtcClient: client,
@@ -178,7 +177,7 @@ Page({
   joinAndPublish() {
     if (!this.data.rtcClient) return;
     const { userId, roomId } = this.data
-    log.info(`[room-${this.data.roomId}] 用户 ${userId} 加入房间`);
+    log.info(`[room-${this.data.roomId}] 用户 ${userId} 开始加入房间...`);
     // 加入 RTC 房间
     this.data.rtcClient.join(
       undefined,
@@ -257,10 +256,10 @@ Page({
       this.setData({
         enableAudio: !enableAudio
       }, () => {
-        log.info(`[room-${this.data.roomId}] 用户 ${userId} ${enableAudio ? '开启' : '关闭'}了声音`);
+        log.info(`[room-${roomId}] 用户 ${userId} ${this.data.enableAudio ? '开启' : '关闭'}了声音`);
       });
     }, (e) => {
-      log.error(`[room-${this.data.roomId}] 用户 ${userId} 开/关音频失败, 错误信息：`, e)
+      log.error(`[room-${roomId}] 用户 ${userId} ${this.data.enableAudio ? '开启' : '关闭'}音频失败, 错误信息：`, e)
     });
   },
 
@@ -304,10 +303,10 @@ Page({
     } = this.data;
 
     client.destroy(() => {
-      log.info(`[room-${this.data.roomId}] 用户 ${userId} 销毁客户端对象成功`);
+      log.info(`[room-${roomId}] 用户 ${userId} 销毁客户端对象成功`);
       complete && complete();
     }, (e) => {
-      log.error(`[room-${this.data.roomId}] 用户 ${userId} 销毁客户端对象失败，错误信息：${e}`);
+      log.error(`[room-${roomId}] 用户 ${userId} 销毁客户端对象失败，错误信息：${e}`);
       wx.showToast({
         title: '销毁客户端对象失败',
         icon: 'none',
@@ -320,7 +319,7 @@ Page({
 
   // 离开房间
   leaveRoom() {
-    log.info(`[room-${this.data.roomId}] 用户ID：${this.data.userId} 离开房间`);
+    log.info(`[room-${this.data.roomId}] 用户 ${this.data.userId} 离开房间`);
     wx.showModal({
       title: "提示",
       content: "确认退出会议？",
@@ -394,7 +393,7 @@ Page({
       })
     }
 
-    log.info(`[room-${this.data.roomId}] live-pusher 事件：用户ID：${dataset.uid}, ${PushErrorCode[detail.code]}`);
+    log.info(`[room-${this.data.roomId}] 用户 ${this.data.userId} live-pusher 事件：${PushErrorCode[detail.code]}`);
   },
 
   // 拉流-播放状态变化事件
@@ -404,7 +403,7 @@ Page({
 
     // 拉流：网络断连，且经多次重连无效，请自行重启拉流
     if (detail.code === -2301) {
-      log.warn(`多次拉取用户 ${ dataset.uid } 媒体流失败，即将销毁播放器，然后重新添加。`);
+      log.warn(`[room-${this.data.roomId}] 用户 ${this.data.userId} 多次拉取用户 ${ dataset.uid } 媒体流失败，即将销毁播放器，然后重新添加。`);
     //   const findRemoteUser = this.data.remoteUsers.find(user => user.uid === dataset.uid);
     //   if (findRemoteUser) {
     //     // 先移除
@@ -416,12 +415,12 @@ Page({
     //   }
     }
 
-    log.info(`[room-${this.data.roomId}] live-player 事件：用户ID：${dataset.uid}, ${PullErrorCode[detail.code]}`);
+    log.info(`[room-${this.data.roomId}] 用户 ${this.data.userId} live-player 事件：用户ID：${dataset.uid}, ${PullErrorCode[detail.code]}`);
   },
   // 拉流-网络状态通知
   onPullNetStatus(e) {
     const detail = e.detail;
     // 包含拉流的分辨率、码率、帧率等信息
-    // log.info(`live-player 网络事件：`, detail.info)
+    // log.info(`[room-${this.data.roomId}] 用户 ${this.data.userId} live-player 网络事件：用户ID：${dataset.uid},`, detail.info)
   },
 });
